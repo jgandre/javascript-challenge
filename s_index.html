@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-
+​
 <head>
   <meta charset="utf-8">
   <title>UFO Finder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
   
-  <script src="https://d3js.org/d3.v6.min.js"></script>
-  </head>
-
+</head>
+​
 <body>
   <div class="wrapper">
     <nav class="navbar navbar-default">
@@ -26,7 +27,7 @@
     <div class="hero text-center">
       <h1>UFO Sightings</h1>
     </div>
-
+​
     <div class="container">
       <div class="row margin-top-50">
         <div class="col-md-2">
@@ -38,18 +39,17 @@
                   <div class="form-group">
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
-                        <label for="date">Enter a Date</label> -->
-
-                        select #datetime for handleClick()
-                        <input class="form-control" id="date-filter-input" type="text" placeholder="1/11/2011">
-
+                        <label for="date">Enter a Date</label>
+                        <!-- select #datetime for handleClick() -->                        
+                        <input id="date-filter-input" class="form-control"  type="text" placeholder="1/11/2011">
+​
                       </li>
                     </ul>
                   </div>
-
+​
                   <!-- select #filter-btn-->
                   <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
-
+​
                 </form>
               </div>
             </div>
@@ -57,26 +57,7 @@
         </div>
         <div class="col-md-10">
           <div id="table-area" class="">
-            <table id="ufo-table" class="table table-striped">
-
-              <!-- THEAD
-              <thead>
-                <tr>
-                  <th class="table-head">Date</th>
-                  <th class="table-head">City</th>
-                  <th class="table-head">State</th>
-                  <th class="table-head">Country</th>
-                  <th class="table-head">Shape</th>
-                  <th class="table-head">Duration</th>
-                  <th class="table-head">Comments</th>
-                </tr>
-              </thead>
-
-              TBODY -->
-              <!-- <tbody></tbody> -->
-
-            </table>
-            
+            <table id="ufo-table" class="table table-striped"></table>
           </div>
           <h1 class="output"></h1>
         </div>
@@ -86,9 +67,55 @@
       <span class="bottom">UFO Sightings</span>
     </footer>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
-  <script src="static/js/data.js"></script>
-  <script src="static/js/app.js"></script>
+   
 </body>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</html>
 
-</html> 
+
+this is stephens app.js file code
+function showData(data) {
+    let table = d3.select("#ufo-table")
+    table.selectAll("tr").remove()
+    let headerRow = table.append("tr")
+    headerRow.append("th").text("date/time")
+    headerRow.append("th").text("city")
+    headerRow.append("th").text("state")
+    headerRow.append("th").text("country")
+    headerRow.append("th").text("shape")
+    headerRow.append("th").text("comments")
+    
+    let tableBody = table.append("tbody")
+    data.forEach((d) => {
+       let row = tableBody.append("tr")
+       row.append("td").text(d.datetime)
+       row.append("td").text(d.city)
+       row.append("td").text(d.state)
+       row.append("td").text(d.country)
+       row.append("td").text(d.shape)
+       row.append("td").text(d.comments)
+    })
+}
+function handleClick() {
+    let datetime = d3.select("#date-filter-input").property("value")
+    let filteredData = data.filter((d) => d.datetime === datetime)
+    showData(filteredData)
+}
+d3.select("#filter-btn").on("click", handleClick)
+​
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
