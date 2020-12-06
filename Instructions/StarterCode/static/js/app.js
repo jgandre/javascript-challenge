@@ -37,7 +37,7 @@
 // // buildTable(tableData)
 
 // / Julie
-function showData() {
+function showData(data) {
     
     let table = d3.select("#ufo-table")
 
@@ -66,11 +66,12 @@ function showData() {
     })
 }
 
-// showData(data);
+showData(data);
 
 function handleClick() {
     let date = d3.select("#date-filter-input").property("value")
-    let filteredData = data.filter((d) => d.datetime === date)
+    console.log(date)
+    let filteredData = data.filter((d) => d.datetime == date)
     // let filteredData = data
 
     // showStats(filteredData)
@@ -78,6 +79,14 @@ function handleClick() {
     console.log(filteredData)
     
 }
+
+// function handleClick() {
+//     let date = d3.select("#date-filter-input").property("value")
+//     let filterData = data
+//     let filteredData = filterData.filter((d) => d.datetime === date)
+//     showData(filteredData)
+//     console.log(filteredData)
+// }
 
 // d3.select("#table-button").on("click", handleClick)
 d3.selectAll('#filter-btn').on('click', handleClick)
